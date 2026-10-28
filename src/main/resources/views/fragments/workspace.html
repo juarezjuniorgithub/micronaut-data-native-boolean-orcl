@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(pageTitle)">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Oracle native BOOLEAN task workspace">
+<title th:text="${pageTitle} + ' | Oracle BOOLEAN Lab'">Oracle
+	BOOLEAN Lab</title>
+<link rel="stylesheet" th:href="@{/css/micronaut.css}"
+	href="/css/micronaut.css">
+</head>
+<body>
+	<header th:fragment="header(activePage)" class="site-header">
+		<div class="container header-content">
+			<a class="brand" th:href="@{/ui}" href="/ui"
+				aria-label="Oracle BOOLEAN Lab home"> <span class="brand-mark"
+				aria-hidden="true">BN</span> <span>Oracle BOOLEAN Lab</span>
+			</a>
+			<nav class="site-nav" aria-label="Workspace navigation">
+				<a th:href="@{/ui}" href="/ui"
+					th:classappend="${activePage == 'workbench'} ? ' active' : ''">REST
+					workbench</a> <a th:href="@{/ui/database-proof}"
+					href="/ui/database-proof"
+					th:classappend="${activePage == 'proof'} ? ' active' : ''">Database
+					check</a>
+			</nav>
+			<span class="runtime-badge">Micronaut Data JDBC</span>
+		</div>
+	</header>
+	<footer th:fragment="footer" class="site-footer">
+		<div class="container footer-content">
+			<span>Oracle BOOLEAN Data Type with Micronaut Data JDBC</span>
+		</div>
+	</footer>
+</body>
+</html>

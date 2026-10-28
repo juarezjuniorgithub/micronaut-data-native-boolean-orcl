@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/workspace :: head('Database check')}"></head>
+<body>
+	<a class="skip-link" href="#database-evidence">Skip to database
+		evidence</a>
+	<div class="app-shell">
+		<header th:replace="~{fragments/workspace :: header('proof')}"></header>
+		<section class="entity-hero" aria-labelledby="proof-title">
+			<div class="container hero-grid">
+				<div>
+					<p class="eyebrow">Oracle metadata · JDBC inspection</p>
+					<h1 id="proof-title">Native type verification.</h1>
+					<p class="hero-copy">
+						See the database product, JDBC driver, and mapped task columns
+						that prove Oracle native
+						<code>BOOLEAN</code>
+						support.
+					</p>
+					<div class="hero-actions">
+						<a class="button button-primary" th:href="@{/ui}" href="/ui">Use
+							REST workbench</a>
+					</div>
+				</div>
+				<aside class="architecture-card"
+					aria-label="Database verification summary">
+					<p class="architecture-kicker">Oracle native BOOLEAN</p>
+					<ol>
+						<li><strong th:text="${capabilities.databaseProduct}">Oracle</strong><span>Connected
+								through the configured JDBC datasource.</span></li>
+						<li><strong
+							th:text="${#lists.size(capabilities.booleanColumns)} + ' mapped columns'">2
+								mapped columns</strong><span>Task state uses the Boolean type
+								directly.</span></li>
+						<li><strong>BOOLEAN</strong><span>Reported from Oracle
+								metadata at runtime.</span></li>
+					</ol>
+				</aside>
+			</div>
+		</section>
+		<main>
+			<section class="workspace-section" id="database-evidence"
+				aria-labelledby="database-evidence-title">
+				<div class="container">
+					<div class="section-heading">
+						<div>
+							<p class="eyebrow">Database check</p>
+							<h2 id="database-evidence-title">Inspect the native type</h2>
+						</div>
+						<p class="endpoint-hint">This page reads database and column
+							metadata through the same configured Oracle datasource used by
+							the REST API.</p>
+					</div>
+					<div class="workspace-grid">
+						<section class="panel" aria-labelledby="metadata-title">
+							<div class="panel-heading">
+								<span class="panel-number">DB</span>
+								<div>
+									<p class="eyebrow">Connection details</p>
+									<h3 id="metadata-title">Database proof</h3>
+								</div>
+							</div>
+							<dl class="metadata-list">
+								<div>
+									<dt>Database</dt>
+									<dd th:text="${capabilities.databaseProduct}">Oracle</dd>
+								</div>
+								<div>
+									<dt>Driver</dt>
+									<dd th:text="${capabilities.jdbcDriver}">Oracle JDBC
+										driver</dd>
+								</div>
+								<div>
+									<dt>Database version</dt>
+									<dd th:text="${capabilities.databaseVersion}">Oracle
+										Database</dd>
+								</div>
+								<div>
+									<dt>Driver version</dt>
+									<dd th:text="${capabilities.jdbcDriverVersion}">23c</dd>
+								</div>
+							</dl>
+							<p class="proof-note">
+								<strong>Native mapping:</strong> the entity Boolean fields are
+								persisted without number or character workarounds.
+							</p>
+						</section>
+						<section class="panel panel-results"
+							aria-labelledby="column-types-title">
+							<div class="panel-heading">
+								<span class="panel-number">OK</span>
+								<div>
+									<p class="eyebrow">Mapped columns</p>
+									<h3 id="column-types-title">Oracle type evidence</h3>
+								</div>
+							</div>
+							<div class="table-wrap">
+								<table class="compact-metadata-table">
+									<caption class="visually-hidden">Oracle metadata for
+										native BOOLEAN task columns</caption>
+									<thead>
+										<tr>
+											<th scope="col">Table</th>
+											<th scope="col">Column</th>
+											<th scope="col">Oracle type</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="column : ${capabilities.booleanColumns}">
+											<td th:text="${column.table}">BOOLEAN_TASK</td>
+											<td th:text="${column.column}">COMPLETED</td>
+											<td><span class="status-chip is-true"
+												th:text="${column.dataType}">BOOLEAN</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</section>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer th:replace="~{fragments/workspace :: footer}"></footer>
+	</div>
+</body>
+</html>

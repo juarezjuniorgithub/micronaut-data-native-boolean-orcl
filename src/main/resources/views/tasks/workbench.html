@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/workspace :: head('REST workbench')}"></head>
+<body>
+	<a class="skip-link" href="#write-operations">Skip to task
+		operations</a>
+	<div class="app-shell">
+		<header th:replace="~{fragments/workspace :: header('workbench')}"></header>
+		<section class="hero" aria-labelledby="workspace-title">
+			<div class="container hero-grid">
+				<div>
+					<p class="eyebrow">Oracle AI Database 26ai · Micronaut Data
+						JDBC</p>
+					<h1 id="workspace-title" class="hero-title">Oracle BOOLEAN
+						Data Type Lab</h1>
+					<p class="hero-copy">
+						Create, update, and query task state through a focused JSON API
+						backed by Oracle native
+						<code>BOOLEAN</code>
+						columns.
+					</p>
+					<div class="hero-actions">
+						<a class="button button-primary" href="#write-operations">Create
+							a task</a> <a class="button button-secondary" href="#read-operations">Inspect
+							responses</a>
+					</div>
+				</div>
+				<aside class="architecture-card" aria-label="Workspace capabilities">
+					<p class="architecture-kicker">One database, one native type</p>
+					<ol>
+						<li><strong>POST /api/tasks</strong><span>Create a
+								task with a Boolean value.</span></li>
+						<li><strong>PUT completion</strong><span>Update the
+								native Boolean state.</span></li>
+						<li><strong>GET verification</strong><span>Read tasks
+								and Oracle type metadata.</span></li>
+					</ol>
+				</aside>
+			</div>
+		</section>
+		<main>
+			<section class="workspace-section" id="write-operations"
+				aria-labelledby="operations-title">
+				<div class="container">
+					<div class="section-heading">
+						<div>
+							<p class="eyebrow">Interactive workspace</p>
+							<h2 id="operations-title">Test each capability</h2>
+						</div>
+					</div>
+					<div class="workspace-grid">
+						<section class="panel" id="create-task"
+							aria-labelledby="create-task-title">
+							<div class="panel-heading">
+								<span class="panel-number">01</span>
+								<div>
+									<p class="eyebrow">Create request</p>
+									<h3 id="create-task-title">Create a task</h3>
+								</div>
+							</div>
+							<p class="panel-copy">
+								Create a task through
+								<code>POST /api/tasks</code>
+								, choosing its first native Boolean value.
+							</p>
+							<form class="form-stack" id="api-create-form">
+								<label for="api-title-input">Task title<input
+									id="api-title-input" name="title" type="text" maxlength="255"
+									required value="Create through the REST API"></label> <label
+									class="boolean-choice" for="api-completed-input"><input
+									id="api-completed-input" name="completed" type="checkbox"
+									value="true"><span>Start as completed</span></label>
+								<button class="button button-primary" type="submit">Create
+									task</button>
+							</form>
+						</section>
+						<section class="panel" aria-labelledby="update-task-title">
+							<div class="panel-heading">
+								<span class="panel-number">02</span>
+								<div>
+									<p class="eyebrow">Update request</p>
+									<h3 id="update-task-title">Update a task</h3>
+								</div>
+							</div>
+							<p class="panel-copy">After creation, the task ID is filled
+								in automatically. You can also enter an existing ID.</p>
+							<form class="form-stack" id="api-update-form">
+								<label for="api-task-id">Task ID<input id="api-task-id"
+									name="id" type="number" min="1" required value="1"></label> <label
+									class="boolean-choice" for="api-update-completed"><input
+									id="api-update-completed" name="completed" type="checkbox"
+									value="true" checked><span>Set completed to TRUE</span></label>
+								<button class="button button-primary" type="submit">Update
+									completion</button>
+							</form>
+						</section>
+					</div>
+				</div>
+			</section>
+			<section class="workspace-section scenario-section"
+				id="read-operations" aria-labelledby="read-requests-title">
+				<div class="container workspace-grid">
+					<section class="panel panel-read"
+						aria-labelledby="read-requests-title">
+						<div class="panel-heading">
+							<span class="panel-number">03</span>
+							<div>
+								<p class="eyebrow">Read requests</p>
+								<h3 id="read-requests-title">Read and verify</h3>
+							</div>
+						</div>
+						<p class="panel-copy">Choose an endpoint to query persisted
+							native Boolean values or inspect the Oracle metadata.</p>
+						<div class="endpoint-list" aria-label="Read API endpoints">
+							<button class="button button-secondary" type="button"
+								data-api-get="/api/tasks">GET /api/tasks</button>
+							<button class="button button-secondary" type="button"
+								data-api-get="/api/tasks/open">GET /api/tasks/open</button>
+							<button class="button button-secondary" type="button"
+								data-api-get="/api/tasks/completed">GET
+								/api/tasks/completed</button>
+							<button class="button button-secondary" type="button"
+								data-api-get="/api/tasks/state/false">GET
+								/api/tasks/state/false</button>
+							<button class="button button-secondary" type="button"
+								data-api-get="/api/tasks/state/true">GET
+								/api/tasks/state/true</button>
+							<button class="button button-secondary" type="button"
+								data-api-get-template="/api/tasks/{id}">GET
+								/api/tasks/{id}</button>
+							<button class="button button-secondary" type="button"
+								data-api-get="/api/boolean/capabilities">GET
+								/api/boolean/capabilities</button>
+						</div>
+					</section>
+					<section class="panel panel-results"
+						aria-labelledby="api-response-title">
+						<div class="panel-heading">
+							<span class="panel-number">Live</span>
+							<div>
+								<p class="eyebrow">API response</p>
+								<h3 id="api-response-title">Inspect what happened</h3>
+							</div>
+						</div>
+						<p id="api-result-status" class="response-status"
+							aria-live="polite">Ready. Choose an action to call the API.</p>
+						<section class="response-table"
+							aria-labelledby="task-response-title">
+							<div class="section-heading">
+								<div>
+									<p class="eyebrow">Task response</p>
+									<h3 id="task-response-title">Task attributes</h3>
+								</div>
+								<span class="status-chip">Structured view</span>
+							</div>
+							<div class="table-wrap">
+								<table>
+									<caption class="visually-hidden">Task response
+										attributes from the selected REST endpoint</caption>
+									<thead>
+										<tr>
+											<th scope="col">ID</th>
+											<th scope="col">Title</th>
+											<th scope="col">Completed</th>
+										</tr>
+									</thead>
+									<tbody id="task-response-rows">
+										<tr>
+											<td colspan="3" class="empty-state">Run a task endpoint
+												to view ID, title, and completed status here.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</section>
+						<pre id="api-result" class="request-response"></pre>
+					</section>
+				</div>
+			</section>
+		</main>
+		<footer th:replace="~{fragments/workspace :: footer}"></footer>
+	</div>
+	<script th:src="@{/js/rest-workbench.js?v=4}"
+		src="/js/rest-workbench.js?v=4" defer></script>
+</body>
+</html>
